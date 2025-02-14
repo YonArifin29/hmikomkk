@@ -3,7 +3,7 @@
         aria-label="Sidenav"
         id="drawer-navigation"
       >
-        <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+        <div class="overflow-y-auto py-5 px-3 h-full bg-green-800 dark:bg-gray-800">
           {{-- <form action="#" method="GET" class="md:hidden mb-2">
             <label for="sidebar-search" class="sr-only">Search</label>
             <div class="relative">
@@ -35,7 +35,7 @@
           <x-contentofsidebar></x-contentofsidebar>
         </div>
         <div
-          class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20"
+          class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-bg-green-800 dark:bg-gray-800 z-20"
         >
          
           <div
@@ -46,10 +46,10 @@
             Settings page
             <div class="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button
-            type="button"
-            data-dropdown-toggle="language-dropdown"
-            class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:hover:text-white dark:text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600"
+          <a
+            href="https://www.instagram.com/yoarifin_29/?igsh=MThoOHB5bGYwbmgweg%3D%3D#"
+            target="_blank"
+            class="inline-flex justify-center p-2 text-white rounded cursor-pointer dark:hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
           >
             <p>Create By Yon Arifin</p>
               <path fill="#b22234" d="M0 0h7410v3900H0z" />
@@ -83,7 +83,7 @@
                 <use xlink:href="#e" x="2470" />
               </g>
             </svg>
-          </button>
+          </a>
           </div>
         </div>
       </aside>
