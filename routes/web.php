@@ -18,17 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user', function () {
-    return view('user-list');
-});
+// Route::get('/user', function () {
+//     return view('user-list');
+// });
 
 Route::get('/user', [UserController::class, 'index']);
-Route::get('/user', [UserController::class, 'add_user']);
-
-Route::get('/user/add', function () {
-    return view('add-user');
-});
-
+Route::get('/user/add', [UserController::class, 'add']);
+Route::post('/user/add_user', [UserController::class, 'add_user']);
+Route::post('/user/delete', [UserController::class, 'delete']);
 
 
 Route::get('/user/edit', function () {

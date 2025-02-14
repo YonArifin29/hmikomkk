@@ -43,7 +43,7 @@
       <li>
         <a
           href="/user"
-          class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-00 dark:text-white dark:hover:bg-gray-700"
+          class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
           >Dafrtar Pengguna</a
         >
       </li>
