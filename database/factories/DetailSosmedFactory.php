@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Member;
+use App\Models\Sosmed;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class ArticleFactory extends Factory
+class DetailSosmedFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +19,8 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'title' => fake()->sentence(2),
-            'image' => 'imgae.jpg',
-            'content' => fake()->sentence()
+           'member_id' => Member::factory(),
+            'sosmed_id' => Sosmed::factory()
         ];
     }
 }

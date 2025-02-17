@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Sosmed;
+use App\Models\Training;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +21,8 @@ class MemberFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'status' => 'aktif',
+            'status' => 'kader',
+            'image' => 'image.jpg',
             'gender' => "l",
             'phone_number' => '08989829898',
         ];

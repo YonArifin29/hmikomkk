@@ -2,12 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Member;
+use App\Models\Training;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DetailTraining>
  */
-class CategoryFactory extends Factory
+class DetailTrainingFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +19,8 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->sentence(1)
+            'member_id' => Member::factory(),
+            'training_id' => Training::factory()
         ];
     }
 }

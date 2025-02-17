@@ -5,4 +5,9 @@
 @source "../views";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
-
+select[multiple] {
+    height: auto;
+    min-height: 100px;
+    overflow-y: auto;
+    display: block;
+}

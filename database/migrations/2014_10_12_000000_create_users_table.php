@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('name', length:50);
             $table->string('username', length:50);
             $table->string('password', length:200);
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
-            $table->enum('role', ['admin', 'author'])->default('author');
+            $table->enum('role', ['admin', 'author  '])->default('author');
             $table->string('phone_number', length:13);
             $table->string('otp', length:6)->default('null');
             $table->timestamps();

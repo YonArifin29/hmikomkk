@@ -25,9 +25,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'username' => fake()->name(),
+            'username' => fake()->userName(),
             'password' => static::$password ??= Hash::make('password'),
-            'status' => 'aktif',
             'role' => "admin",
             'phone_number' => '08989829898',
             'otp' => '00992'

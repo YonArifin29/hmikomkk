@@ -15,14 +15,14 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        return view('user-list', [
+        return view('user.user-list', [
             'users' => User::all()->sortDesc()
         ]);
     }
 
     public function add(): View
     {
-        return view('add-user', []);
+        return view('user.add-user', []);
     }
 
     public function add_user(Request $request)
@@ -57,10 +57,50 @@ class UserController extends Controller
         $status = $user->save();
 
         if($status) {
-            return redirect('/user')->with('status', 'success')->with('message', 'User deleted successfully.');
+            return redirect('/user')->with('status', 'success')->with('message', 'Data berhasil disimpan.');
         } else {
-            return redirect('/user')->with('status', 'fail')->with('message', 'User not found.');
+            return redirect('/user')->with('status', 'fail')->with('message', 'Data gagal disimpan.');
         }
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect('/user')->with('status', 'fail')->with('message', 'User tidak ditemukan.');
+        }
+
+        return view('user.edit-user', ['user' => $user]);
+    }
+
+    public function update(Request $request, User $user, $id)
+    {
+        // Validate request data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'username' => 'required',
+            'phone_number' => 'required|numeric|digits_between:10,15',
+            'role' => 'required',
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'username.required' => 'Username wajib diisi.',
+            'phone_number.required' => 'Nomor telepon wajib diisi.',
+            'role.required' => 'Role wajib dipilih.',
+            'phone_number.numeric' => 'Nomor telepon tidak valid.',
+            'phone_number.digits_between' => 'Nomor telepon tidak valid.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::find($id);
+
+        // Update user data
+        $user->update($request->only(['name', 'username', 'phone_number', 'role']));
+
+        return redirect()->route('user.index')->with('status', 'success')->with('message', 'User berhasil diperbarui.');
     }
 
     public function delete($id)
@@ -70,13 +110,13 @@ class UserController extends Controller
 
         // Check if user exists
         if (!$user) {
-            return redirect('/user')->with('status', 'fail')->with('message', 'User not found.');
+            return redirect('/user')->with('status', 'fail')->with('message', 'Data gagal dihapus.');
         }
 
         // Delete the user
         $user->delete();
 
         // Redirect with success message
-        return redirect('/user')->with('status', 'success')->with('message', 'User deleted successfully.');
+        return redirect('/user')->with('status', 'success')->with('message', 'Data berhasil dihapus.');
     }
 }

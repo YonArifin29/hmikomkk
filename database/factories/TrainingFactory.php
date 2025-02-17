@@ -17,7 +17,8 @@ class TrainingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'training_name' => fake()->sentence(4),
+            'training_category' => 'formal',
         ];
     }
 }

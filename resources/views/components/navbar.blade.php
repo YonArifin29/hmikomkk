@@ -37,7 +37,7 @@
         </button>
         <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
           <img 
-              src="../image/KK.png" 
+              src="{{ asset('image/KK.png') }}"
               class="mr-3 h-8" 
               alt="Komis KK Logo" 
           />

@@ -42,9 +42,17 @@
     <ul id="dropdown-pages" class="hidden py-2 space-y-2">
       <li>
         <a
-          href="/user"
+          href="{{ url('/user') }}"
           class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-          >Dafrtar Pengguna</a
+          >
+          </span> Dafrtar Pengguna</a
+        >
+      </li>
+      <li>
+        <a
+          href="{{ url('/member') }}"
+          class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          >Dafrtar Anggota</a
         >
       </li>
     </ul>
@@ -155,7 +163,14 @@
     <ul id="dropdown-kategori" class="hidden py-2 space-y-2">
       <li>
         <a
-          href="#"
+          href="{{ url('/training') }}"
+          class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          >Kategori Training</a
+        >
+      </li>
+      <li>
+        <a
+          href="{{ url('/user') }}"
           class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
           >Sign In</a
         >

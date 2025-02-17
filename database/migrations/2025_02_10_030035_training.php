@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('training', function (Blueprint $table) {
             $table->id();
             $table->string('training_name', length:100);
+            $table->enum('training_category', ['formal', 'informal  '])->default('formal');
             $table->timestamps();
         });
     }
