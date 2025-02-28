@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Member extends Model
@@ -22,8 +23,13 @@ class Member extends Model
         return $this->hasMany(DetailSosmed::class, 'sosmed_id'); 
     }
 
-    public function training(): HasMany 
+    // public function training(): HasMany 
+    // {
+    //     return $this->hasMany(DetailTraining::class, 'training_id'); 
+    // }
+
+    public function trainings(): BelongsToMany
     {
-        return $this->hasMany(DetailTraining::class, 'training_id'); 
+        return $this->belongsToMany(Training::class, 'detail_training', 'member_id', 'training_id');
     }
 }

@@ -2,7 +2,7 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Edit Anggota</h2>
-            <form action="/member/update/{{ $member->id }}" method="POST" enctype="multipart/form-data">
+            <form action="/member/update/{{ $member->id }}" method="POST" enctype="multipart/form-data" >
                 @csrf
                 @method('PUT')
 
@@ -53,22 +53,18 @@
                     </div>
                 </div>
                 
-                {{-- <div class="sm:col-span-2">
+                <div class="sm:col-span-2">
                     <label for="training" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Training yang diikuti</label>
-                        <select id="training" name="training[]" multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                            focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                            dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="training" name="training[]" multiple size="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                    
                         @foreach ($trainings as $training)
-                            <option value="{{ $training->id }}" 
-                                {{ in_array($training->id, old('training', $member->trainings ? $member->trainings->pluck('id')->toArray() : [])) ? 'selected' : '' }}>
+                            <option value="{{ $training->id }}">
                                 {{ $training->training_name }}
                             </option>
                         @endforeach
                     </select>
-
-                </div> --}}
-                
-
+                </div>
                 <button type="submit" class="mt-4 bg-blue-700 text-white px-4 py-2 rounded-lg">Update</button>
             </form>
         </div>

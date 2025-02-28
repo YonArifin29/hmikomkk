@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Models\Sosmed;
 use App\Models\Training;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -65,7 +66,7 @@ class MemberController extends Controller
         }
     }
 
-    public function edit($id): View
+    public function edit($id): View |RedirectResponse
     {
        
         $member = Member::find($id);
@@ -80,6 +81,8 @@ class MemberController extends Controller
 
     public function update(Request $request, $id)
     {
+        
+        
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone_number' => 'required|numeric',
@@ -111,7 +114,11 @@ class MemberController extends Controller
         $member->save();
 
         // Update training details (sync to pivot table)
-        $member->training()->sync($request->training);
+
+        dd($request->all());
+
+
+        $member->trainings()->sync($request->training);
 
         return redirect('/member')->with('status', 'success')->with('message', 'Data berhasil diperbarui.');
     }
