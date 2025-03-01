@@ -112,6 +112,7 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
+                                <th scope="col" class="px-4 py-3">No</th>
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Username</th>
                                 <th scope="col" class="px-4 py-3">Role</th>
@@ -120,9 +121,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $no=1;?>
                             @foreach ($users as $user)
                                 <tr class="border-b dark:border-gray-700 ">
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $user->name }}</th>
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $no++ }}</th>
+                                    <td class="px-4 py-3">{{ $user->name }}</td>
                                     <td class="px-4 py-3">{{ $user->username }}</td>
                                     <td class="px-4 py-3">{{ $user->role }}</td>
                                     <td class="px-4 py-3">{{ $user->phone_number}}</td>

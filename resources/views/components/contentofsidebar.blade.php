@@ -88,9 +88,9 @@
     <ul id="dropdown-sales" class="hidden py-2 space-y-2">
       <li>
         <a
-          href="#"
+          href="/article"
           class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-          >Products</a
+          >Daftar Kajian</a
         >
       </li>
     </ul>
@@ -170,9 +170,9 @@
       </li>
       <li>
         <a
-          href="{{ url('/user') }}"
+          href="{{ url('/category') }}"
           class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-          >Sign In</a
+          >Kategori Kajian & Berita</a
         >
       </li>
     </ul>

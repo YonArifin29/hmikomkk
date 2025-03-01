@@ -112,6 +112,7 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
+                                <th scope="col" class="px-4 py-3">No</th>
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Foto</th>
                                 <th scope="col" class="px-4 py-3">Nomor Hp</th>
@@ -121,9 +122,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $no=1;?>
                             @foreach ($members as $member)
                                 <tr class="border-b dark:border-gray-700 ">
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $member->name }}</th>
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $no++ }}</th>
+                                    <td class="px-4 py-3">{{ $member->name }}</td>
                                     <td class="px-4 py-3">
                                         <img src="{{ asset('storage/' . $member->image) }}" alt="Member Image" class="w-16 h-16 object-cover rounded-lg border border-gray-300 shadow-md">
                                     </td>

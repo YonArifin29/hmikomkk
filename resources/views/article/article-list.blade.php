@@ -25,8 +25,7 @@
                                     <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z" clip-rule="evenodd"/>
                                   </svg>
                                 <span class="sr-only">Info</span>
-                                <div class="ms-3 text-sm font-medium">
-                                A simple info alert with an <a href="#" class="font-semibold underline hover:no-underline">{{ session('message') }}</div>
+                                <div class="ms-3 text-sm font-medium">{{ session('message') }}</div>
                                 <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-2" aria-label="Close">
                                 <span class="sr-only">Close</span>
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -48,11 +47,11 @@
                         </form>
                     </div>
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <a href="{{ url('training/add') }}" class="flex items-center justify-center text-white bg-green-800 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <a href="/article/add" class="flex items-center justify-center text-white bg-green-800 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                             <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
-                            Tambah Training
+                            Tambah Kajian
                         </a>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
@@ -112,20 +111,27 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Nama Training</th>
-                                <th scope="col" class="px-4 py-3">Kategori Training</th>
+                                <th scope="col" class="px-4 py-3">No</th>
+                                <th scope="col" class="px-4 py-3">Penulis</th>
+                                <th scope="col" class="px-4 py-3">Judul</th>
+                                <th scope="col" class="px-4 py-3">Foto</th>
+                                <th scope="col" class="px-4 py-3">Konten</th>
+                                <th scope="col" class="px-4 py-3">Tanggl dibuat</th>
                                 <th scope="col" class="px-4 py-3 text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $no = 1;?>
-                            @foreach ($trainings as $training)
+                            <?php $no=1;?>
+                            @foreach ($articles as $article)
                                 <tr class="border-b dark:border-gray-700 ">
                                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $no++ }}</th>
-                                    <td class="px-4 py-3">{{ ucfirst($training->training_name) }}</td>
-                                    <td class="px-4 py-3">{{ ucfirst($training->training_category) }}</td>
+                                    <td class="px-4 py-3">{{ $article->name }}</td>
+                                    <td class="px-4 py-3">{{ $article->title }}</td>
+                                    <td class="px-4 py-3">{{ $article->image }}</td>
+                                    <td class="px-4 py-3">{{ $article->content}}</td>
+                                    <td class="px-4 py-3">{{ $article->created_at}}</td>
                                     <td class="px-4 py-3 flex justify-evenly">
-                                        <form action="{{ url('/training/edit/'.$training->id) }}" method="POST">
+                                        <form action="{{ url('/article/edit/'.$article->id) }}" method="POST">
                                             @csrf
                                             @method('GET')
                                             <button type="submit" class="cursor-pointer flex justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg size-9  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -136,7 +142,7 @@
                                                 
                                             </button>
                                         </form>
-                                        <form action="{{ url('/training/delete/'.$training->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        <form action="{{ url('/article/delete/'.$article->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="flex justify-evenly items-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 size-9 rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer">

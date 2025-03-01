@@ -1,9 +1,14 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -45,3 +50,19 @@ Route::post('/training/add_training', [TrainingController::class, 'add_training'
 Route::get('/training/edit/{id}', [TrainingController::class, 'edit'])->name('training.edit');
 Route::put('/training/update/{id}', [TrainingController::class, 'update'])->name('training.update');
 Route::delete('/training/delete/{id}', [TrainingController::class, 'delete'])->name('training.delete');
+
+// category news and kajian
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/category/add', [CategoryController::class, 'add'])->name('category.add');
+Route::post('/category/add_category', [CategoryController::class, 'add_category'])->name('category.insert');
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('edit.edit');
+Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::delete('/category/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+
+// kajian
+Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
+Route::get('/article/add', [ArticleController::class, 'add'])->name('article.add');
+Route::post('/article/add_article', [ArticleController::class, 'add_article'])->name('article.insert');
+Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('edit.edit');
+Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
+Route::delete('/article/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
