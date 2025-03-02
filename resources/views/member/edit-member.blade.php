@@ -2,7 +2,7 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Edit Anggota</h2>
-            <form action="/member/update/{{ $member->id }}" method="POST" enctype="multipart/form-data" >
+            <form action="/member/update/{{ $member->id }}" method="POST" enctype="multipart/form-data" class="w-full">
                 @csrf
                 @method('PUT')
 
@@ -41,9 +41,9 @@
                             <option value="senior" {{ old('status', $member->status) == 'senior' ? 'selected' : '' }}>Senior</option>
                         </select>
                     </div>
-
                     <div class="sm:col-span-2">
-                        <label for="image" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Upload Gambar</label>
+                        <img id='preview_img' src="{{ asset('storage/' . $member->image) }}" class="h-16 w-16 object-cover rounded-full" alt="Current profile photo" />
+                        <label for="image" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Upload Foto</label>
                         <input type="file" id="image" name="image" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -52,21 +52,26 @@
                         @enderror
                     </div>
                 </div>
-                
-                <div class="sm:col-span-2">
-                    <label for="training" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Training yang diikuti</label>
-                    <select id="training" name="training[]" multiple size="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                    
-                        @foreach ($trainings as $training)
-                            <option value="{{ $training->id }}">
+                <div class="col-span-full sm:col-span-2 min-w-0">
+                    <label for="training" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Training yang diikuti
+                    </label>
+                    <select id="training" name="training[]" multiple="multiple" size="5" 
+                        class="js-example-basic-multiple bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                               rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                               dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                         @foreach ($trainings as $training)
+                            <option value="{{ $training->id }}" 
+                                {{ in_array($training->id, $trainingsFollowedByMember->pluck('training_id')->toArray()) ? 'selected' : '' }}>
                                 {{ $training->training_name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="mt-4 bg-blue-700 text-white px-4 py-2 rounded-lg">Update</button>
-            </form>
+                            
+                <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded-lg cursor-pointer">Simpan</button>
+                <a href="{{ url('/member') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer ml-3">Kembali</a>
         </div>
     </section>
 </x-layout>

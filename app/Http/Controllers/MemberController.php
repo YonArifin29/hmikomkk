@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTraining;
 use App\Models\Member;
 use App\Models\Sosmed;
 use App\Models\Training;
@@ -71,12 +72,15 @@ class MemberController extends Controller
        
         $member = Member::find($id);
         $trainings = Training::all();
+        $training = DetailTraining::where('member_id', $id)->get();
 
+        // dd($training);
+        
         if (!$member) {
             return redirect('/member')->with('status', 'fail')->with('message', 'Anggota tidak ditemukan.');
         }
 
-        return view('member.edit-member', ['member' => $member, 'trainings' => $trainings]);
+        return view('member.edit-member', ['member' => $member, 'trainings' => $trainings, 'trainingsFollowedByMember' => $training]);
     }
 
     public function update(Request $request, $id)
@@ -115,7 +119,7 @@ class MemberController extends Controller
 
         // Update training details (sync to pivot table)
 
-        dd($request->all());
+        // dd($request->all());
 
 
         $member->trainings()->sync($request->training);

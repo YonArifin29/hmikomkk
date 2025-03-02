@@ -23,10 +23,10 @@ class Member extends Model
         return $this->hasMany(DetailSosmed::class, 'sosmed_id'); 
     }
 
-    // public function training(): HasMany 
-    // {
-    //     return $this->hasMany(DetailTraining::class, 'training_id'); 
-    // }
+    public function detaiTraining(): HasMany 
+    {
+        return $this->hasMany(DetailTraining::class, 'id'); 
+    }
 
     public function trainings(): BelongsToMany
     {

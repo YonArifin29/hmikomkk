@@ -14,14 +14,20 @@ class DetailTraining extends Model
 
     // Fix eager loading property
     protected $with = ['members', 'sosmed']; // Corrected this
+    
 
-    public function member(): BelongsTo // Renamed from `article` to `news`
-    {
-        return $this->belongsTo(Member::class);
-    }
+    // public function member(): BelongsTo // Renamed from `article` to `news`
+    // {
+    //     return $this->belongsTo(Member::class);
+    // }
 
-    public function medsos(): BelongsTo 
+    public function sosmed(): BelongsTo 
     {
         return $this->belongsTo(Sosmed::class);
     }
+
+    public function members() {
+        return $this->belongsTo(Member::class, 'member_id');
+    }
+
 }

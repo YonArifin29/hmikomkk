@@ -42,17 +42,19 @@
                     </div>
                     
                     <div class="sm:col-span-2">
-                        <label for="image" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Upload Gambar</label>
+                        <img id='preview_img' src="{{ asset('storage/members/user.png') }}" class="h-16 w-16 object-cover rounded-full" alt="Current profile photo" />
+                        <label for="image" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Upload Foto</label>
                         <input type="file" id="image" name="image" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="loadFile(event)">
                         @error('image')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
         
-                <button type="submit" class="mt-4 bg-green-700 text-white px-4 py-2 rounded-lg">Submit</button>
+                <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded-lg cursor-pointer">Simpan</button>
+                <a href="{{ url('/member') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer ml-3">Kembali</a>
             </form>
         </div>
     </section>
