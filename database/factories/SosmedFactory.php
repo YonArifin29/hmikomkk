@@ -17,8 +17,7 @@ class SosmedFactory extends Factory
     public function definition(): array
     {
         return [
-            'platform_name' => fake()->sentence(4),
-            'link' => fake()->url(),
+            'platform_name' => fake()->sentence(4)
         ];
     }
 }

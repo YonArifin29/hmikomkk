@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="col-span-full sm:col-span-2 min-w-0">
-                    <label for="training" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="training" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                         Training yang diikuti
                     </label>
                     <select id="training" name="training[]" multiple="multiple" size="5" 
@@ -69,9 +69,54 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="sm:col-span-2 mt-3 mb-3">
+                    <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Media Sosial</label>
+                    <div id="social-container">
+                        @foreach ($member->sosmed as $index => $social)
+                            <div class="flex space-x-2 mb-2 social-group">
+                                <select name="sosmed[${index}][sosmed_id]" class="w-1/3 p-2 border rounded-lg">
+                                    @foreach ($platforms as $platform)
+                                        <option value="{{ $platform->id }}" {{ $platform->id == $social->sosmed_id ? 'selected' : '' }}>
+                                            {{ $platform->platform_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <input type="url" name="sosmed[${index}][link]" value="{{ $social->link }}" class="w-2/3 p-2 border rounded-lg">
+                                <button type="button" class="remove-social text-red-600">Hapus</button>
+                            </div>
+                        @endforeach
+                    </div>
+                    <button type="button" id="add-social" class="bg-blue-600 text-white px-2 py-1 rounded mt-2">Tambah Media Sosial</button>
+                </div>
                             
                 <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded-lg cursor-pointer">Simpan</button>
                 <a href="{{ url('/member') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer ml-3">Kembali</a>
         </div>
     </section>
+    <script>
+       document.getElementById('add-social').addEventListener('click', function () {
+            let container = document.getElementById('social-container');
+            let index = container.children.length; // Ambil jumlah elemen untuk index baru
+            let newDiv = document.createElement('div');
+            newDiv.classList.add('flex', 'space-x-2', 'mb-2', 'social-group');
+            newDiv.innerHTML = `
+                <select name="sosmed[${index}][sosmed_id]" class="w-1/3 p-2 border rounded-lg">
+                    @foreach ($platforms as $platform)
+                        <option value="{{ $platform->id }}">{{ $platform->platform_name }}</option>
+                    @endforeach
+                </select>
+                <input type="url" name="sosmed[${index}][link]" class="w-2/3 p-2 border rounded-lg">
+                <button type="button" class="remove-social text-red-600">Hapus</button>
+            `;
+            container.appendChild(newDiv);
+        });
+
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-social')) {
+                e.target.parentElement.remove();
+            }
+        });
+
+    </script>
 </x-layout>

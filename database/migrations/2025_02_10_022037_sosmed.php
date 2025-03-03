@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('sosmed', function (Blueprint $table) {
             $table->id();
             $table->string('platform_name', length:100);
-            $table->string('link', length:250);
             $table->timestamps();
         });
     }

@@ -12,18 +12,18 @@ class DetailSosmed extends Model
 {
     use HasFactory;
     protected $table = 'detail_sosmed';
-    protected $fillable = ['member_id', 'sosmed_id'];
+    protected $fillable = ['member_id', 'sosmed_id', 'link'];
 
     // Fix eager loading property
-    protected $with = ['members', 'sosmed']; // Corrected this
+    protected $with = ['member', 'sosmed']; // Corrected this
 
     public function member(): BelongsTo // Renamed from `article` to `news`
     {
         return $this->belongsTo(Member::class);
     }
 
-    public function medsos(): BelongsTo 
+    public function sosmed()
     {
-        return $this->belongsTo(Sosmed::class);
+        return $this->belongsTo(Sosmed::class, 'sosmed_id', 'id');
     }
 }

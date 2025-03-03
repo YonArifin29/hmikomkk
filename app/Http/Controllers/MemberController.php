@@ -70,17 +70,16 @@ class MemberController extends Controller
     public function edit($id): View |RedirectResponse
     {
        
-        $member = Member::find($id);
+        $member = Member::with('detailSosmed.sosmed')->find($id);
         $trainings = Training::all();
         $training = DetailTraining::where('member_id', $id)->get();
-
-        // dd($training);
+        $platforms = Sosmed::all();
         
         if (!$member) {
             return redirect('/member')->with('status', 'fail')->with('message', 'Anggota tidak ditemukan.');
         }
 
-        return view('member.edit-member', ['member' => $member, 'trainings' => $trainings, 'trainingsFollowedByMember' => $training]);
+        return view('member.edit-member', ['member' => $member, 'trainings' => $trainings, 'trainingsFollowedByMember' => $training,  'platforms' => $platforms]);
     }
 
     public function update(Request $request, $id)
@@ -93,7 +92,10 @@ class MemberController extends Controller
             'gender' => 'required',
             'status' => 'required',
             'training' => 'array', // Ensure it's an array
-            'training.*' => 'exists:training,id' // Validate each selected training
+            'training.*' => 'exists:training,id', // Validate each selected training
+            'social_media' => 'array',
+            'social_media.*.platform_id' => 'exists:sosmed,id',
+            'social_media.*.link' => 'nullable|url'
         ]);
 
         if ($validator->fails()) {
@@ -117,12 +119,20 @@ class MemberController extends Controller
         // Save member first
         $member->save();
 
-        // Update training details (sync to pivot table)
-
-        // dd($request->all());
-
-
         $member->trainings()->sync($request->training);
+
+         // Update social media
+         $member->sosmed()->delete();
+         if ($request->has('sosmed')) {
+             foreach ($request->sosmed as $social) {
+                 if (!empty($social['link'])) {
+                     $member->sosmed()->create([
+                         'sosmed_id' => $social['sosmed_id'],
+                         'link' => $social['link']
+                     ]);
+                 }
+             }
+         }
 
         return redirect('/member')->with('status', 'success')->with('message', 'Data berhasil diperbarui.');
     }

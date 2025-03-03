@@ -9,6 +9,6 @@ class Sosmed extends Model
 {
     use HasFactory;
     protected $table = 'sosmed';
-    protected $fillable = ['platform_name', 'link'];
+    protected $fillable = ['platform_name'];
     
 }

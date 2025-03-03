@@ -20,7 +20,7 @@ class Member extends Model
 
     public function sosmed(): HasMany 
     {
-        return $this->hasMany(DetailSosmed::class, 'sosmed_id'); 
+        return $this->hasMany(DetailSosmed::class, 'member_id'); 
     }
 
     public function detaiTraining(): HasMany 
@@ -32,4 +32,9 @@ class Member extends Model
     {
         return $this->belongsToMany(Training::class, 'detail_training', 'member_id', 'training_id');
     }
+
+    public function detailSosmed()
+{
+    return $this->hasMany(DetailSosmed::class, 'member_id', 'id');
+}
 }

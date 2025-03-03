@@ -20,7 +20,8 @@ class DetailSosmedFactory extends Factory
     {
         return [
            'member_id' => Member::factory(),
-            'sosmed_id' => Sosmed::factory()
+            'sosmed_id' => Sosmed::factory(),
+            'link' => fake()->url(),
         ];
     }
 }
