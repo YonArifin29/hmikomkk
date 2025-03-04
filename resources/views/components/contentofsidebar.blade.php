@@ -170,6 +170,13 @@
       </li>
       <li>
         <a
+          href="{{ url('/sosmed') }}"
+          class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          >Kategori Sosial Media</a
+        >
+      </li>
+      <li>
+        <a
           href="{{ url('/category') }}"
           class="flex items-center p-2 pl-11 w-full text-base font-medium text-white rounded-lg transition duration-75 group hover:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
           >Kategori Kajian & Berita</a

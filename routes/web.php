@@ -3,25 +3,11 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,3 +52,11 @@ Route::post('/article/add_article', [ArticleController::class, 'add_article'])->
 Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('edit.edit');
 Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 Route::delete('/article/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+
+// Sosmed
+Route::get('/sosmed', [SosmedController::class, 'index'])->name('sosmed.index');
+Route::get('/sosmed/add', [SosmedController::class, 'add'])->name('sosmed.add');
+Route::post('/sosmed/add_sosmed', [SosmedController::class, 'add_sosmed'])->name('sosmed.insert');
+Route::get('/sosmed/edit/{id}', [SosmedController::class, 'edit'])->name('sosmed.edit');
+Route::put('/sosmed/update/{id}', [SosmedController::class, 'update'])->name('sosmed.update');
+Route::delete('/sosmed/delete/{id}', [SosmedController::class, 'delete'])->name('sosmed.delete');
