@@ -18,6 +18,10 @@ return new class extends Migration
             $table->enum('status', ['senior', 'pengurus', 'kader']);
             $table->enum('gender', ['l', 'p']);
             $table->string('phone_number', length:13);
+            $table->string('address', length:250);
+            $table->date('year_of_entering_college');
+            $table->date('year_of_entering_hmi');
+            $table->date('date_of_birth');
             $table->timestamps();
         });
     }

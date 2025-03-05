@@ -8,6 +8,7 @@ use App\Models\Sosmed;
 use App\Models\Training;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
@@ -52,8 +53,11 @@ class MemberController extends Controller
         $member->phone_number = $request->phone_number;
         $member->gender = $request->gender;
         $member->status = $request->status;
-        $member->image = 'yon.jpg';
-
+        $member->date_of_birth = $request->date_of_birth;
+        $member->address = $request->address;
+        $member->year_of_entering_college = $request->year_of_entering_college;
+        $member->year_of_entering_hmi = $request->year_of_entering_hmi;
+        
         // Handle Image Upload
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('members', 'public');
@@ -110,11 +114,22 @@ class MemberController extends Controller
         $member->phone_number = $request->phone_number;
         $member->gender = $request->gender;
         $member->status = $request->status;
-
+        $member->date_of_birth = $request->date_of_birth;
+        $member->address = $request->address;
+        $member->year_of_entering_college = $request->year_of_entering_college;
+        $member->year_of_entering_hmi = $request->year_of_entering_hmi;
+        
+         // Cek apakah ada file baru
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('members', 'public');
-            $member->image = $imagePath;
+        // Hapus foto lama jika ada
+        if ($member->image) {
+            Storage::disk('public')->delete($member->image);
         }
+
+        // Simpan foto baru
+        $imagePath = $request->file('image')->store('members', 'public');
+        $member->image = $imagePath;
+    }
 
         // Save member first
         $member->save();
@@ -135,6 +150,30 @@ class MemberController extends Controller
          }
 
         return redirect('/member')->with('status', 'success')->with('message', 'Data berhasil diperbarui.');
+    }
+
+    public function delete($id)
+    {
+        // Find member by ID
+        $member = Member::find($id);
+
+        // Check if member exists
+        if (!$member) {
+            return redirect('/member')->with('status', 'fail')->with('message', 'Data gagal dihapus.');
+        }
+
+        if ($member->image) {
+            Storage::disk('public')->delete($member->image);
+        }
+        // Hapus relasi sosial media dan training sebelum menghapus member
+        $member->sosmed()->delete();
+        $member->trainings()->detach();
+        
+        // Delete the member
+        $member->delete();
+
+        // Redirect with success message
+        return redirect('/member')->with('status', 'success')->with('message', 'Data berhasil dihapus.');
     }
 
 

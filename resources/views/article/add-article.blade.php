@@ -2,7 +2,7 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambah Kajian</h2>
-            <form action="/member/add_member" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/article/add_article') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-4">
@@ -15,12 +15,17 @@
                     </div>
                     <div class="">
                         <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
-                        <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="l" {{ old('category') == 'l' ? 'selected' : '' }}>Laki-Laki</option>
-                            <option value="p" {{ old('category') == 'p' ? 'selected' : '' }}>Perempuan</option>
-                        </select>
+                        <select id="category" name="category[]" multiple="multiple" size="5" 
+                        class="js-example-basic-multiple bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                               rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                               dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                         @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
                     </div>
                     <div class="">
                         <label for="image" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Upload Gambar</label>

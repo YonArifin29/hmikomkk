@@ -7,21 +7,27 @@
                 @method('PUT')
 
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-4">
-                    <div class="sm:col-span-2">
+                    <div class="sm:col-span-1">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nama</label>
                         <input type="text" id="name" name="name" value="{{ old('name', $member->name) }}" class="bg-gray-50 border @error('name') border-red-500 @else border-gray-300 @enderror 
                             text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                             dark:bg-gray-700 dark:border-gray-600">
+                            @error('name')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                            @enderror
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <div class="sm:col-span-1">
                         <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nomor Hp</label>
                         <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number', $member->phone_number) }}" class="bg-gray-50 border @error('phone_number') border-red-500 @else border-gray-300 @enderror 
                             text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                             dark:bg-gray-700 dark:border-gray-600">
+                            @error('phone_number')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                            @enderror
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <div class="sm:col-span-1">
                         <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin</label>
                         <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
@@ -30,7 +36,30 @@
                             <option value="p" {{ old('gender', $member->gender) == 'p' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
-
+                    <div class="sm:col-span-1">
+                        <label for="date_of_birth" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal Lahir</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth', $member->date_of_birth) }}" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                            dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div class="sm:col-span-1">
+                        <label for="year_of_entering_college" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Tahun Masuk Kuliah</label>
+                        <input type="date" id="year_of_entering_college" name="year_of_entering_college" value="{{ old('year_of_entering_college', $member->year_of_entering_college) }}" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                            dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div class="sm:col-span-1">
+                        <label for="year_of_entering_hmi" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Tahun Masuk HMI</label>
+                        <input type="date" id="year_of_entering_hmi" name="year_of_entering_hmi" value="{{ old('year_of_entering_hmi', $member->year_of_entering_hmi) }}" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                            dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Alamat</label>
+                        <input type="text" id="address" name="address" value="{{ old('address', $member->address) }}" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                            dark:bg-gray-700 dark:border-gray-600">
+                    </div>
                     <div class="sm:col-span-2">
                         <label for="status" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                         <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 

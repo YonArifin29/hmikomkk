@@ -117,7 +117,11 @@
                                 <th scope="col" class="px-4 py-3">Foto</th>
                                 <th scope="col" class="px-4 py-3">Nomor Hp</th>
                                 <th scope="col" class="px-4 py-3">Jenis Kelamin</th>
+                                <th scope="col" class="px-4 py-3">Tanggal Lahir</th>
+                                <th scope="col" class="px-4 py-3">Alamat</th>
                                 <th scope="col" class="px-4 py-3">Status</th>
+                                <th scope="col" class="px-4 py-3">Tahun Masuk Kuliah</th>
+                                <th scope="col" class="px-4 py-3">Tahun Masuk HMI</th>
                                 <th scope="col" class="px-4 py-3 text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -132,7 +136,11 @@
                                     </td>
                                     <td class="px-4 py-3">{{ $member->phone_number }}</td>
                                     <td class="px-4 py-3">{{ $member->gender == 'l' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                    <td class="px-4 py-3">{{ $member->date_of_birth }}</td>
+                                    <td class="px-4 py-3">{{ $member->address }}</td>
                                     <td class="px-4 py-3">{{ Str::ucfirst($member->status) }}</td>
+                                    <td class="px-4 py-3">{{ $member->year_of_entering_college }}</td>
+                                    <td class="px-4 py-3">{{ $member->year_of_entering_hmi }}</td>
                                     <td class="px-4 py-3 flex justify-evenly">
                                         <form action="{{ url('/member/edit/'.$member->id) }}" method="POST">
                                             @csrf

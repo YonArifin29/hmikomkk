@@ -5,6 +5,8 @@
 @source "../views";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
+@source "../node_modules/flowbite-datepicker";
+
 select[multiple] {
     height: auto;
     min-height: 100px;

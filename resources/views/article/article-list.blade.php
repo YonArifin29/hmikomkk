@@ -127,8 +127,10 @@
                                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $no++ }}</th>
                                     <td class="px-4 py-3">{{ $article->name }}</td>
                                     <td class="px-4 py-3">{{ $article->title }}</td>
-                                    <td class="px-4 py-3">{{ $article->image }}</td>
-                                    <td class="px-4 py-3">{{ $article->content}}</td>
+                                    <td class="px-4 py-3">
+                                        <img src="{{ asset('storage/' . $article->image) }}" alt="Article Image" class="w-16 h-16 object-cover rounded-lg border border-gray-300 shadow-md">
+                                    </td>
+                                    <td class="px-4 py-3">{{ htmlspecialchars_decode($article->content)}}</td>
                                     <td class="px-4 py-3">{{ $article->created_at}}</td>
                                     <td class="px-4 py-3 flex justify-evenly">
                                         <form action="{{ url('/article/edit/'.$article->id) }}" method="POST">

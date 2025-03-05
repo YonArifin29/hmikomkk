@@ -25,6 +25,10 @@ class MemberFactory extends Factory
             'image' => 'image.jpg',
             'gender' => "l",
             'phone_number' => '08989829898',
+            'address' => 'sadayu kalijati barat',
+            'year_of_entering_college' => '2025-09-01',
+            'year_of_entering_hmi' => '2025-09-01',
+            'date_of_birth' => '2025-09-01'
         ];
     }
 }
