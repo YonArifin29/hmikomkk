@@ -1,15 +1,15 @@
 <x-layout>
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Edit Kajian</h2>
-            <form action="{{ url('/article/update', $article->id) }}" method="POST" enctype="multipart/form-data">
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambah Berita</h2>
+            <form action="{{ url('/news/add_news') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
+                @method('POST')
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-4">
-                    <input type="hidden" name="user_id" value="{{ $article->user_id }}" >
+                    <input type="hidden" name="user_id" value="1" >
                     <div class="sm:col-span-2">
                         <label for="title" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
-                        <input type="text" id="title" name="title" value="{{ old('title', $article->title) }}" class="bg-gray-50 border @error('title') border-red-500 @else border-gray-300 @enderror 
+                        <input type="text" id="title" name="title" value="{{ old('title') }}" class="bg-gray-50 border @error('name') border-red-500 @else border-gray-300 @enderror 
                             text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                             dark:bg-gray-700 dark:border-gray-600">
                     </div>
@@ -21,10 +21,9 @@
                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                                dark:focus:ring-blue-500 dark:focus:border-blue-500">
                          @foreach ($categories as $category)
-                         <option value="{{ $category->id }}" 
-                            @if($article->categories->contains($category->id)) selected @endif>
-                            {{ $category->name }}
-                        </option>
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
                         @endforeach
                     </select>
                     </div>
@@ -36,17 +35,14 @@
                         @error('image')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
-                        @if ($article->image)
-                            <img src="{{ asset('storage/' . $article->image) }}" alt="Current Image" class="mt-2 w-32 h-32 object-cover">
-                        @endif
                     </div>
                     <div class="sm:col-span-2">
-                        <textarea name="content" id="content">{{ old('content', $article->content) }}</textarea>
+                        <textarea name="content" id="content">Isi Konten</textarea>
                     </div>
                 </div>
-                
-                <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-lg cursor-pointer">Update</button>
-                <a href="{{ url('/article') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer ml-3">Kembali</a>
+        
+                <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded-lg cursor-pointer">Simpan</button>
+                <a href="{{ url('/news') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer ml-3">Kembali</a>
             </form>
         </div>
     </section>

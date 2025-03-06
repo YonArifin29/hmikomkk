@@ -1,18 +1,25 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 // user
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/user/add', [UserController::class, 'add'])->name('user.add');
@@ -52,6 +59,14 @@ Route::post('/article/add_article', [ArticleController::class, 'add_article'])->
 Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('edit.edit');
 Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 Route::delete('/article/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+
+// news
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
+Route::post('/news/add_news', [NewsController::class, 'add_news'])->name('news.insert');
+Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('edit.edit');
+Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
+Route::delete('/news/delete/{id}', [NewsController::class, 'delete'])->name('news.delete');
 
 // Sosmed
 Route::get('/sosmed', [SosmedController::class, 'index'])->name('sosmed.index');

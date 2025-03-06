@@ -23,10 +23,10 @@ class Article extends Model
         return $this->hasMany(DetailCategoryArticle::class, 'id'); 
     }
 
-    public function category(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class, 'detail_category_articles', 'article_id', 'category_id');
-    }
+    // public function category(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Category::class, 'detail_category_articles', 'article_id', 'category_id');
+    // }
 
     public function user(): BelongsTo 
     {
@@ -42,14 +42,20 @@ class Article extends Model
         return $article;
     }
 
-    public function detaiTraining(): HasMany 
+    public function categories()
     {
-        return $this->hasMany(DetailTraining::class, 'id'); 
+        return $this->belongsToMany(Category::class, 'detail_category_articles', 'article_id', 'category_id');
     }
+   
 
-    public function trainings(): BelongsToMany
-    {
-        return $this->belongsToMany(Training::class, 'detail_training', 'member_id', 'training_id');
-    }
+    // public function detaiTraining(): HasMany 
+    // {
+    //     return $this->hasMany(DetailTraining::class, 'id'); 
+    // }
+
+    // public function trainings(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Training::class, 'detail_training', 'member_id', 'training_id');
+    // }
 }
 
