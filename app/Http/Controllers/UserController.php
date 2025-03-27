@@ -13,10 +13,18 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = User::query();
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('username', 'like', '%' . $request->search . '%');
+        }
+
         return view('user.user-list', [
-            'users' => User::all()->sortDesc()
+            'users' => $query->orderBy('created_at', 'desc')->paginate(7)
         ]);
     }
 

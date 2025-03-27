@@ -19,27 +19,31 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:50',
-            'password' => 'required|string|min:6'
+            'username' => 'required',
+            'password' => 'required'
         ]);
+        $username = $request->input('username');
+        $password = $request->input('password');
 
-        // Coba autentikasi user dengan username & password
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            $user = Auth::user(); // Ambil data user setelah login
-
-            // Simpan data user ke session
-            session([
+        // Find user by username
+        $user = User::where('username', $username)->first();
+       
+        // Attempt to authenticate the user
+        if ($user && Hash::check($password, $user->password)) {
+            
+            $request->session()->put('user', [
                 'user_id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
                 'role' => $user->role,
-                'phone_number' => $user->phone_number
+                'phone_number' => $user->phone_number,
+                'is_login' => true
             ]);
-
-            return redirect()->route('dashboard')->with('success', 'Login berhasil!');
+    
+            return redirect('/dashboard'); // Redirect after login success
         }
-
-        return back()->withErrors(['username' => 'Username atau password salah']);
+    
+        return back()->withErrors(['error' => 'Username atau password salah']);
     }
 
     // Logout
@@ -56,26 +60,5 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    // Proses register
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:50',
-            'username' => 'required|string|max:50|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'phone_number' => 'required|string|max:13|unique:users'
-        ]);
-
-        // Buat user baru
-        User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'role' => 'author', // Default role "author"
-            'phone_number' => $request->phone_number,
-            'otp' => null // Default tidak ada OTP
-        ]);
-
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
-    }
+   
 }

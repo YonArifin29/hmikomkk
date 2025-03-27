@@ -40,7 +40,6 @@
                         <textarea name="content" id="content">Isi Konten</textarea>
                     </div>
                 </div>
-        
                 <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded-lg cursor-pointer">Simpan</button>
                 <a href="{{ url('/article') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer ml-3">Kembali</a>
             </form>

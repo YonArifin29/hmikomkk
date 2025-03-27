@@ -13,12 +13,20 @@ use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View 
     {
-        $article = new Article();
-        
+        $query = DB::table('users as u')
+            ->join('articles as a', 'u.id', '=', 'a.user_id')
+            ->select('u.name', 'a.id', 'a.title', 'a.image', 'a.content', 'a.created_at')->orderBy('a.id', 'desc');
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('a.title', 'like', '%' . $request->search . '%')
+                ->orWhere('u.name', 'like', '%' . $request->search . '%');
+        }
+
         return view('article.article-list', [
-            'articles' => $article->getAticleWithWriter()
+            'articles' => $query->paginate(7) // Tambahkan pagination di sini
         ]);
     }
 
@@ -79,6 +87,22 @@ class ArticleController extends Controller
         $categories = Category::all();
         
         return view('article.edit-article', [
+            'article' => $article,
+            'categories' => $categories
+        ]);
+    }
+
+    public function show($id): View | RedirectResponse
+    {
+        $article = Article::with(['categories', 'user'])->find($id);
+    
+        if (!$article) {
+            return redirect('/article')->with('status', 'fail')->with('message', 'Kajian tidak ditemukan.');
+        }
+    
+        $categories = Category::all();
+    
+        return view('article.view-article', [
             'article' => $article,
             'categories' => $categories
         ]);

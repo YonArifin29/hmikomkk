@@ -23,23 +23,18 @@ class Article extends Model
         return $this->hasMany(DetailCategoryArticle::class, 'id'); 
     }
 
-    // public function category(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Category::class, 'detail_category_articles', 'article_id', 'category_id');
-    // }
-
     public function user(): BelongsTo 
     {
         return $this->belongsTo(User::class);
     }
 
-    public function getAticleWithWriter() {
-        $article = DB::table('users as u')
-        ->join('articles as a', 'u.id', '=', 'a.user_id') // Assuming 'user_id' is the foreign key in 'articles'
-        ->select('u.name', 'a.id', 'a.title', 'a.image', 'a.content', 'a.created_at') // Fixed 'create_at' to 'created_at'
-        ->get();
+    public static function getArticleWithWriter() {
+        // return DB::table('users as u')
+        // ->join('articles as a', 'u.id', '=', 'a.user_id')
+        // ->select('u.name', 'a.id', 'a.title', 'a.image', 'a.content', 'a.created_at')
+        // ->orderBy('a.id', 'desc')    
+        // ->paginate(7);
 
-        return $article;
     }
 
     public function categories()

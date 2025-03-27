@@ -35,7 +35,7 @@ class News extends Model
         $article = DB::table('users as u')
         ->join('news as n', 'u.id', '=', 'n.user_id') // Assuming 'user_id' is the foreign key in 'news'
         ->select('u.name', 'n.id', 'n.title', 'n.image', 'n.content', 'n.created_at') // Fixed 'create_at' to 'created_at'
-        ->get();
+        ->paginate(7); 
 
         return $article;
     }

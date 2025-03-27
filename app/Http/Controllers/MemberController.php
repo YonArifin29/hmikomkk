@@ -11,15 +11,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
+
+
 
 class MemberController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = Member::query();
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('phone_number', 'like', '%' . $request->search . '%');
+        }
+
         return view('member.member-list', [
-            'members' => Member::all()->sortDesc()
+            'members' => $query->orderBy('created_at', 'desc')->paginate(7)
         ]);
     }
+
 
     public function add(): View
     {
@@ -84,6 +96,43 @@ class MemberController extends Controller
         }
 
         return view('member.edit-member', ['member' => $member, 'trainings' => $trainings, 'trainingsFollowedByMember' => $training,  'platforms' => $platforms]);
+    }
+
+    public function show(Request $request, $id): View|RedirectResponse|JsonResponse
+    {
+        // Ambil data member dengan relasi sosial media
+        $member = Member::with('detailSosmed.sosmed')->find($id);
+
+        // Jika anggota tidak ditemukan, kembalikan response sesuai tipe request
+        if (!$member) {
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'fail', 'message' => 'Anggota tidak ditemukan.'], 404);
+            }
+            return redirect('/member')->with('status', 'fail')->with('message', 'Anggota tidak ditemukan.');
+        }
+
+        // Ambil data pelatihan dan sosial media
+        $trainings = Training::all();
+        $training = DetailTraining::where('member_id', $id)->get();
+        $platforms = Sosmed::all();
+
+        // Jika request adalah JSON, kembalikan data sebagai response API
+        if ($request->wantsJson()) {
+            return response()->json([
+                'member' => $member,
+                'trainings' => $trainings,
+                'trainingsFollowedByMember' => $training,
+                'platforms' => $platforms
+            ]);
+        }
+
+        // Jika request biasa (HTML), kembalikan ke view
+        return view('member.view-member', [
+            'member' => $member,
+            'trainings' => $trainings,
+            'trainingsFollowedByMember' => $training,
+            'platforms' => $platforms
+        ]);
     }
 
     public function update(Request $request, $id)

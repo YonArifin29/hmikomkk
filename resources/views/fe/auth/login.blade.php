@@ -13,7 +13,9 @@
           <h1 class="pt-8 pb-6 font-bold text-5xl dark:text-gray-400 text-center cursor-default">
             Login
           </h1>
-          <form action="#" method="post" class="space-y-4">
+          <form action="{{ url('login') }}" method="POST" class="space-y-4">
+            @csrf
+            @method('POST')
             <div>
               <label for="username" class="mb-2 dark:text-gray-400 text-lg">Username</label>
               <input
@@ -22,6 +24,7 @@
                 type="username"
                 placeholder="username"
                 required
+                name="username"
               />
             </div>
             <div>
@@ -32,8 +35,13 @@
                 type="password"
                 placeholder="Password"
                 required
+                name="password"
               />
+              
             </div>
+            @error('error')
+              <p class="text-sm text-red-600">{{ $message }}</p>
+            @enderror
             <button
               class="bg-gradient-to-r from-green-800 to-green-400 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-green-400 hover:to-green-800 transition duration-300 ease-in-out"
               type="submit"

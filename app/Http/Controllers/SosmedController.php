@@ -9,10 +9,17 @@ use Illuminate\View\View;
 
 class SosmedController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = Sosmed::query();
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('platform_name', 'like', '%' . $request->search . '%');
+        }
+
         return view('sosmed.sosmed-list', [
-            'sosmeds' => Sosmed::all()->sortDesc()
+            'sosmeds' => $query->orderBy('created_at', 'desc')->paginate(7)
         ]);
     }
 

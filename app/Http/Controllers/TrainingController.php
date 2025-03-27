@@ -9,10 +9,18 @@ use Illuminate\View\View;
 
 class TrainingController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = Training::query();
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('training_name', 'like', '%' . $request->search . '%')
+                ->orWhere('training_category', 'like', '%' . $request->search . '%');
+        }
+
         return view('training.training-list', [
-            'trainings' => Training::all()->sortDesc()
+            'trainings' => $query->orderBy('created_at', 'desc')->paginate(7)
         ]);
     }
 

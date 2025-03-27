@@ -5,19 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;        
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class NewsController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $news = new News();
-        
+        $query = DB::table('users as u')
+            ->join('news as n', 'u.id', '=', 'n.user_id')
+            ->select('u.name', 'n.id', 'n.title', 'n.image', 'n.content', 'n.created_at')->orderBy('n.id', 'desc');
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('n.title', 'like', '%' . $request->search . '%')
+                ->orWhere('u.name', 'like', '%' . $request->search . '%');
+        }
+
         return view('news.news-list', [
-            'newses' => $news->getNewsWithWriter()
+            'newses' => $query->paginate(7)
         ]);
     }
 
