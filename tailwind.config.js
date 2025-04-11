@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                redhat: ["Red Hat Display", "sans-serif"],
             },
             colors: {
                 greenBanner: "#076A2E",

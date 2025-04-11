@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web', 'guest.user'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/articles', [ArticleController::class, 'articles'])->name('articles.index');
+    Route::get('/newsFe', [NewsController::class, 'news'])->name('news.news');
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
 });

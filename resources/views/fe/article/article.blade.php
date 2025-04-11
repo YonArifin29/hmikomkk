@@ -1,7 +1,7 @@
 <x-layoutFe>
     <section class="bg-white dark:bg-gray-900 flex flex-col items-center w-full min-h-screen py-10 px-4 mt-10"> 
         <h1 class="mb-6 text-4xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
-          Berita
+          Kajian
         </h1>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-screen-xl">
@@ -138,4 +138,5 @@
       
         </div>
       </section>
+      
 </x-layoutFe>

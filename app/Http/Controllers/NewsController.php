@@ -149,4 +149,21 @@ class NewsController extends Controller
 
         return redirect('/news')->with('status', 'success')->with('message', 'news berhasil dihapus.');
     }
+
+    public function news(Request $request): View
+    {
+        $query = DB::table('users as u')
+            ->join('news as n', 'u.id', '=', 'n.user_id')
+            ->select('u.name', 'n.id', 'n.title', 'n.image', 'n.content', 'n.created_at')->orderBy('n.id', 'desc');
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('n.title', 'like', '%' . $request->search . '%')
+                ->orWhere('u.name', 'like', '%' . $request->search . '%');
+        }
+
+        return view('fe.news.news', [
+            'newses' => $query->paginate(7)
+        ]);
+    }
 }

@@ -165,4 +165,21 @@ class ArticleController extends Controller
 
         return redirect('/article')->with('status', 'success')->with('message', 'Artikel berhasil dihapus.');
     }
+
+    public function articles(Request $request): View 
+    {
+        $query = DB::table('users as u')
+            ->join('articles as a', 'u.id', '=', 'a.user_id')
+            ->select('u.name', 'a.id', 'a.title', 'a.image', 'a.content', 'a.created_at')->orderBy('a.id', 'desc');
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('a.title', 'like', '%' . $request->search . '%')
+                ->orWhere('u.name', 'like', '%' . $request->search . '%');
+        }
+
+        return view('fe.article.article', [
+            'articles' => $query->paginate(7) // Tambahkan pagination di sini
+        ]);
+    }
 }
