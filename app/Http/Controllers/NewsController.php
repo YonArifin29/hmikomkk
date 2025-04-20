@@ -30,6 +30,22 @@ class NewsController extends Controller
         ]);
     }
 
+    public function show($id): View | RedirectResponse
+    {
+        $news = News::with(['categories', 'user'])->find($id);
+    
+        if (!$news) {
+            return redirect('/news')->with('status', 'fail')->with('message', 'Kajian tidak ditemukan.');
+        }
+    
+        $categories = Category::all();
+    
+        return view('news.view-news', [
+            'news' => $news,
+            'categories' => $categories
+        ]);
+    }
+
     public function add(): View
     {
         $categories = Category::all();
@@ -152,18 +168,30 @@ class NewsController extends Controller
 
     public function news(Request $request): View
     {
-        $query = DB::table('users as u')
-            ->join('news as n', 'u.id', '=', 'n.user_id')
-            ->select('u.name', 'n.id', 'n.title', 'n.image', 'n.content', 'n.created_at')->orderBy('n.id', 'desc');
+        $queryNews = DB::table('users as u')
+        ->join('news as n', 'u.id', '=', 'n.user_id')
+        ->select('u.name as author', 'n.id', 'n.title', 'n.image', 'n.content', 'n.created_at')->orderBy('n.id', 'desc');
 
-        // Cek apakah ada input pencarian
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('n.title', 'like', '%' . $request->search . '%')
-                ->orWhere('u.name', 'like', '%' . $request->search . '%');
-        }
+        $articleCategories = DB::table('detail_category_news as ac')
+        ->join('categories as c', 'ac.category_id', '=', 'c.id')
+        ->select('ac.news_id as news_id', 'c.id as category_id', 'c.name as category_name')
+        ->get()
+        ->groupBy('news_id');
+
+        $news = $queryNews->get()->map(function ($news) use ($articleCategories) {
+            // Clean up title and content
+            $news->title = htmlspecialchars($news->title, ENT_QUOTES, 'UTF-8');
+            $content = strip_tags($news->content);
+            $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8'); 
+            $news->content = $content; 
+            $news->categories = $articleCategories[$news->id] ?? collect(); 
+    
+            return $news; 
+        });
 
         return view('fe.news.news', [
-            'newses' => $query->paginate(7)
+
+            'news' => $news,
         ]);
     }
 }

@@ -7,6 +7,7 @@
         <li>fitur search</li>
         <li>fitur Statistik</li>
         <li>fitur pembagian role</li>
+        <li>Limit kata judul tambah lagi</li>
       </ul>
     </div>
       <div

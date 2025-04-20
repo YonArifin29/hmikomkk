@@ -35,7 +35,7 @@
           </svg>
           <span class="sr-only">Toggle sidebar</span>
         </button>
-        <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
+        <a href="https://www.instagram.com/hmikomisariat.kk/" class="flex items-center justify-between mr-4" target="_blank">
           <img 
               src="{{ asset('image/KK.png') }}"
               class="mr-3 h-8" 

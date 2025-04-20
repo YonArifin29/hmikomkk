@@ -29,11 +29,11 @@
                 <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-xl xl:px-36">
                     <span class="font-semibold text-gray-400 uppercase text-sm sm:text-base">Our Social Media</span>
                     <div class="flex flex-wrap justify-center items-center mt-4 sm:mt-5 text-gray-500 sm:justify-between">
-                        <a href="#" class="flex items-center mr-6 sm:mr-10 mb-4 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400">
+                        <a href="https://www.instagram.com/hmikomisariat.kk/" class="flex items-center mr-6 sm:mr-10 mb-4 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400" target="_blank">
                             <i class="fa-brands fa-square-instagram text-2xl sm:text-4xl"></i>
                             <span class="ml-2 sm:ml-4 text-lg sm:text-2xl font-bold">Instagram</span>                    
                         </a>
-                        <a href="#" class="flex items-center mr-6 sm:mr-10 mb-4 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400">
+                        <a href="https://web.facebook.com/kaka.yakusa.7" class="flex items-center mr-6 sm:mr-10 mb-4 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400" target="_blank">
                             <i class="fa-brands fa-facebook text-2xl sm:text-4xl"></i>
                             <span class="ml-2 sm:ml-4 text-lg sm:text-2xl font-bold">Facebook</span>               
                         </a>  
@@ -46,163 +46,92 @@
             </div>
         </div>
     </section>  
-    <section class="bg-white dark:bg-gray-900 flex flex-col items-center w-full min-h-screen relative overflow-hidden overflow-x-hidden pt-10 pb-10">
-        <h1 class="mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
-            Kajian
+    <section class="bg-white dark:bg-gray-900 flex flex-col items-center w-full min-h-screen relative overflow-hidden pt-10 pb-10">
+        <!-- Title Kajian -->
+        <h1 class="mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white text-center">
+          Kajian
         </h1>
-        {{-- <div class="flex flex-wrap justify-center items-start gap-6 w-full px-4 mb-20 bg-yellow-300">
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 relative bg-yellow-300">
-                <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+      
+        <!-- Grid Kajian -->
+        <div class="grid grid-cols-1 min-[350px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-screen-xl px-4">
+          @foreach ($articles as $article)
+            <div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+              <a href="{{ url('/article-single/'.$article->id) }}">
+                <img class="rounded-t-lg w-full h-32 sm:h-40 md:h-48 object-cover" src="{{ asset('storage/' . $article->image) }}" alt="" />
+              </a>
+              <div class="p-3 sm:p-4">
+                <span class="text-green-600 text-xs sm:text-sm font-semibold uppercase block mb-1">
+                    @foreach ($article->categories as $category)
+                        {{ $category->category_name }}@if (!$loop->last), @endif
+                    @endforeach
+                </span>
+                  <p class="text-xs">
+                    {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }}
+                  </p>
+                <a href="{{ url('/article-single/'.$article->id) }}">
+                  <h5 class="mb-2 text-sm sm:text-base md:text-lg font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
+                    {{ $article->title }}
+                  </h5>
                 </a>
-                <div class="absolute top-40 left-10  bg-white shadow-lg rounded-t-lg p-5">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <span class="bg-green-800 text-white text-xs font-medium px-2.5 py-0.5 rounded-xl dark:bg-green-900 dark:text-green-300">
-                            12 Jan 2025
-                        </span>
-                        <span class="flex items-center space-x-1 text-gray-600 dark:text-gray-300">
-                            <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
-                            </svg>
-                            <p class="text-sm font-medium">by Author</p>
-                        </span>
+                <p class="mb-2 text-xs sm:text-sm text-gray-700 dark:text-gray-400 line-clamp-3">
+                    {{ $article->content }}
+                  </p>                  
+                <div class="flex items-center mt-4 space-x-2">
+                    <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('image/user.png') }}" alt="Author photo" />
+                    <div class="flex items-center justify-between text-sm text-gray-700 dark:text-gray-400 w-full">
+                      <p class="text-xs text-gray-900 dark:text-white">
+                        {{ $article->author }}
+                      </p>
                     </div>
-                    <a href="#">
-                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-gray-900">
-                            Himpunan Mahasiswa Islam (HMI) Subang Geruduk Gedung DPRD dan Pemda Subang
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper pretium mi, et fringilla ipsum viverra nec. Aenean nec rhoncus velit. Vestibulum congue tellus.
-                    </p>
-                    <a href="#" class="inline-flex items-center text-sm font-medium text-black dark:text-black">
-                        → Baca Selengkapnya
-                    </a>
-                </div>
+                  </div>
+              </div>
             </div>
-        </div> --}}
-        <div class="flex flex-wrap justify-center items-start gap-6 w-full px-4">
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-                    </p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Read more
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-                    </p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Read more
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-                    </p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Read more
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+          @endforeach
         </div>
-        <h1 class="mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
-            Berita
+      
+        <!-- Title Berita -->
+        <h1 class="mt-12 mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white text-center">
+          Berita
         </h1>
-        <div class="flex flex-wrap justify-center items-start gap-6 w-full px-4">
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      
+        <!-- Grid Berita -->
+        <div class="grid grid-cols-1 min-[350px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-screen-xl px-4">
+            @foreach ($newses as $news)
+              <div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                  <img class="rounded-t-lg w-full h-32 sm:h-40 md:h-48 object-cover" src="{{ asset('storage/' . $news->image) }}" alt="" />
                 </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+                <div class="p-3 sm:p-4">
+                  <span class="text-green-600 text-xs sm:text-sm font-semibold uppercase block mb-1">
+                      @foreach ($news->categories as $category)
+                          {{ $category->category_name }}@if (!$loop->last), @endif
+                      @endforeach
+                  </span>
+                    <p class="text-xs">
+                      {{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}
                     </p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Read more
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
+                  <a href="#">
+                    <h5 class="mb-2 text-sm sm:text-base md:text-lg font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
+                      {{ $news->title }}
+                    </h5>
+                  </a>
+                  <p class="mb-2 text-xs sm:text-sm text-gray-700 dark:text-gray-400 line-clamp-3">
+                      {{ $news->content }}
+                    </p>                  
+                  <div class="flex items-center mt-4 space-x-2">
+                      <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('image/user.png') }}" alt="Author photo" />
+                      <div class="flex items-center justify-between text-sm text-gray-700 dark:text-gray-400 w-full">
+                        <p class="text-xs text-gray-900 dark:text-white">
+                          {{ $news->author }}
+                        </p>
+                      </div>
+                    </div>
                 </div>
-            </div>
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-                    </p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Read more
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-full" src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-                    </p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Read more
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+              </div>
+            @endforeach
+          </div>
+      </section>
+      
     <section class="bg-white dark:bg-gray-900">
         <div class="max-w-screen-md px-4 py-12 mx-auto text-center">
           <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -215,9 +144,6 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/MM_QRcode.png" alt="QR Code Donasi" class="w-48 h-48 rounded-lg shadow-md" />
           </div>
           <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">Scan barcode di atas untuk donasi via QRIS</p>
-          <a href="#" class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800">
-            Donasi Sekarang
-          </a>
-        </div>
+         
       </section>      
 </x-layoutFe>

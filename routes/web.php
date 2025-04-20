@@ -12,6 +12,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
+use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
 // Route::middleware(['error.handler'])->group(function () {
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['web', 'guest.user'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
     Route::get('/articles', [ArticleController::class, 'articles'])->name('articles.index');
+    Route::get('/article-single/{id}', [ArticleController::class, 'articleSingle'])->name('article.single');
+    Route::get('/news-single/{id}', [NewsController::class, 'newsSingle'])->name('news.single');
     Route::get('/newsFe', [NewsController::class, 'news'])->name('news.news');
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
@@ -69,12 +72,13 @@ Route::middleware(['web', 'auth.user'])->group(function () {
     Route::get('/article/add', [ArticleController::class, 'add'])->name('article.add');
     Route::post('/article/add_article', [ArticleController::class, 'add_article'])->name('article.insert');
     Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('edit.edit');
-    Route::get('/article/{id}', [ArticleController::class, 'show'])->name('edit.show');
+    Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show');
     Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
     Route::delete('/article/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
 
     // news
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
     Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
     Route::post('/news/add_news', [NewsController::class, 'add_news'])->name('news.insert');
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('edit.edit');

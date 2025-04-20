@@ -1,7 +1,7 @@
 <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="h" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="{{ asset('image/KK.png') }}" class="h-8" alt="Flowbite Logo">
+    <a href="https://www.instagram.com/hmikomisariat.kk/" class="flex items-center space-x-3 rtl:space-x-reverse" target="_blank">
+      <img src="{{ asset('image/KK.png') }}" class="h-8" alt="Flowbite Logo" >
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <a href="login" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-green-800">
@@ -26,10 +26,10 @@
           <a href="/newsFe" class="nav-link block py-2 px-3 rounded-sm md:p-0">Berita</a>
         </li>
         <li>
-          <a href="contact.html" class="nav-link block py-2 px-3 rounded-sm md:p-0">Keanggotaan</a>
+          <a href="#" class="nav-link block py-2 px-3 rounded-sm md:p-0">Keanggotaan</a>
         </li>
         <li>
-          <a href="contact.html" class="nav-link block py-2 px-3 rounded-sm md:p-0">Tentang</a>
+          <a href="#" class="nav-link block py-2 px-3 rounded-sm md:p-0">Tentang</a>
         </li>
       </ul>
     </div>

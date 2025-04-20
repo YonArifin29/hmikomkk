@@ -108,6 +108,22 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function articleSingle($id): View | RedirectResponse
+    {
+        $article = Article::with(['categories', 'user'])->find($id);
+    
+        if (!$article) {
+            return redirect('/article')->with('status', 'fail')->with('message', 'Kajian tidak ditemukan.');
+        }
+    
+        $categories = Category::all();
+    
+        return view('article.article-single', [
+            'article' => $article,
+            'categories' => $categories
+        ]);
+    }
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -168,18 +184,32 @@ class ArticleController extends Controller
 
     public function articles(Request $request): View 
     {
-        $query = DB::table('users as u')
-            ->join('articles as a', 'u.id', '=', 'a.user_id')
-            ->select('u.name', 'a.id', 'a.title', 'a.image', 'a.content', 'a.created_at')->orderBy('a.id', 'desc');
+        $articleCategories = DB::table('detail_category_Articles as ac')
+        ->join('categories as c', 'ac.category_id', '=', 'c.id')
+        ->select('ac.article_id', 'c.id as category_id', 'c.name as category_name')
+        ->get()
+        ->groupBy('article_id');
+    
+        $queryArticle = DB::table('users as u')
+        ->join('articles as a', 'u.id', '=', 'a.user_id')
+        ->select('u.name as author', 'a.id', 'a.title', 'a.image', 'a.content', 'a.created_at')
+        ->orderBy('a.id', 'desc');
 
-        // Cek apakah ada input pencarian
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('a.title', 'like', '%' . $request->search . '%')
-                ->orWhere('u.name', 'like', '%' . $request->search . '%');
-        }
+        $articles = $queryArticle->get()->map(function ($article) use ($articleCategories) {
+        // Clean up title and content
+        $article->title = htmlspecialchars($article->title, ENT_QUOTES, 'UTF-8');
+        $content = strip_tags($article->content);
+        $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8'); 
+        $article->content = $content;
+
+        // Tambahkan kategori (kalau ada)
+        $article->categories = $articleCategories[$article->id] ?? collect();
+
+        return $article;
+    });
 
         return view('fe.article.article', [
-            'articles' => $query->paginate(7) // Tambahkan pagination di sini
+            'articles' => $articles,
         ]);
     }
 }

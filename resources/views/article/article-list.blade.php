@@ -111,7 +111,6 @@
                                 <th scope="col" class="px-4 py-3">Penulis</th>
                                 <th scope="col" class="px-4 py-3">Judul</th>
                                 <th scope="col" class="px-4 py-3">Foto</th>
-                                {{-- <th scope="col" class="px-4 py-3">Konten</th> --}}
                                 <th scope="col" class="px-4 py-3">Tanggl dibuat</th>
                                 <th scope="col" class="px-4 py-3 text-center">Aksi</th>
                             </tr>
@@ -126,7 +125,6 @@
                                     <td class="px-4 py-3">
                                         <img src="{{ asset('storage/' . $article->image) }}" alt="Article Image" class="w-16 h-16 object-cover rounded-lg border border-gray-300 shadow-md">
                                     </td>
-                                    {{-- <td class="px-4 py-3">{{ htmlspecialchars_decode($article->content)}}</td> --}}
                                     <td class="px-4 py-3">{{ $article->created_at}}</td>
                                     <td class="px-4 py-3 flex justify-evenly">
                                         <form action="{{ url('/article/'.$article->id) }}" method="POST">
