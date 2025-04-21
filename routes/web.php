@@ -12,6 +12,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
+use App\Models\Member;
 use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::middleware(['web', 'guest.user'])->group(function () {
     Route::get('/article-single/{id}', [ArticleController::class, 'articleSingle'])->name('article.single');
     Route::get('/news-single/{id}', [NewsController::class, 'newsSingle'])->name('news.single');
     Route::get('/newsFe', [NewsController::class, 'news'])->name('news.news');
+    Route::get('/memberFe', [MemberController::class, 'memberFe'])->name('member.memberFe');
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
 });

@@ -46,14 +46,14 @@
             </div>
         </div>
     </section>  
-    <section class="bg-white dark:bg-gray-900 flex flex-col items-center w-full min-h-screen relative overflow-hidden pt-10 pb-10">
+    <section class="bg-white dark:bg-gray-900 flex flex-col items-center w-full min-h-screen relative overflow-hidden pb-10">
         <!-- Title Kajian -->
         <h1 class="mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white text-center">
           Kajian
         </h1>
-      
+        <div class="mx-auto w-28 sm:w-40 md:w-60 lg:w-80 h-1 bg-green-800 rounded-full mb-10"></div>
         <!-- Grid Kajian -->
-        <div class="grid grid-cols-1 min-[350px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-screen-xl px-4">
+        <div class="grid grid-cols-1 min-[350px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-screen-xl px-4 mt-5">
           @foreach ($articles as $article)
             <div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
               <a href="{{ url('/article-single/'.$article->id) }}">
@@ -93,9 +93,10 @@
         <h1 class="mt-12 mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white text-center">
           Berita
         </h1>
-      
+        <div class="mx-auto w-28 sm:w-40 md:w-60 lg:w-80 h-1 bg-green-800 rounded-full mb-10"></div>
+
         <!-- Grid Berita -->
-        <div class="grid grid-cols-1 min-[350px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-screen-xl px-4">
+        <div class="grid grid-cols-1 min-[350px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-screen-xl px-4 mt-5">
             @foreach ($newses as $news)
               <div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">

@@ -26,7 +26,7 @@
           <a href="/newsFe" class="nav-link block py-2 px-3 rounded-sm md:p-0">Berita</a>
         </li>
         <li>
-          <a href="#" class="nav-link block py-2 px-3 rounded-sm md:p-0">Keanggotaan</a>
+          <a href="/memberFe" class="nav-link block py-2 px-3 rounded-sm md:p-0">Keanggotaan</a>
         </li>
         <li>
           <a href="#" class="nav-link block py-2 px-3 rounded-sm md:p-0">Tentang</a>

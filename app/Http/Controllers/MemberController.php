@@ -225,5 +225,20 @@ class MemberController extends Controller
         return redirect('/member')->with('status', 'success')->with('message', 'Data berhasil dihapus.');
     }
 
+    public function memberFe(Request $request): View
+    {
+        $query = Member::query();
+
+        // Cek apakah ada input pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('phone_number', 'like', '%' . $request->search . '%');
+        }
+
+        return view('fe.member.member', [
+            'members' => $query->orderBy('created_at', 'desc')->paginate(7)
+        ]);
+    }
+
 
 }
